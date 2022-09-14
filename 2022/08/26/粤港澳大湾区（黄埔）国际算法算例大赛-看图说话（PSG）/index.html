@@ -14,7 +14,7 @@
 <meta property="og:description" content="提交记录 VcTree-predcls-res50 epoch12: R@20 0.1487	mR@20 0.0573	PQ 0.343	score 0.1133 VcTree-sgdet-res50 epoch12: R@20 0.205	mR@20 0.0974	PQ 0.343	score 0.1542 VcTree-sgdet-res101 epoch12: R@20 0.2167	mR@">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-08-26T08:45:21.000Z">
-<meta property="article:modified_time" content="2022-08-26T09:02:10.158Z">
+<meta property="article:modified_time" content="2022-09-14T10:33:11.690Z">
 <meta property="article:author" content="big jiale">
 <meta property="article:tag" content="competition">
 <meta name="twitter:card" content="summary">
@@ -75,6 +75,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" aria-label="Previous post" href="/2022/09/12/%E5%A5%BD%E8%AF%8D%E5%A5%BD%E5%8F%A5/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" aria-label="Next post" href="/2022/08/26/mac%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -104,7 +106,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">提交记录</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">提交记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E5%8A%A8%E8%AE%B0%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">改动记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Motif"><span class="toc-number">2.1.</span> <span class="toc-text">Motif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ESegformer%E7%9A%84%E5%88%86%E5%89%B2%E7%BB%93%E6%9E%9C"><span class="toc-number">2.2.</span> <span class="toc-text">基于Segformer的分割结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenPSG-%E5%8F%8A-SGG-%E5%9F%BA%E7%A1%80%E7%9A%84%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text">OpenPSG 及 SGG 基础的学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#R-CNN"><span class="toc-number">3.1.</span> <span class="toc-text">R-CNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fast-RCNN"><span class="toc-number">3.2.</span> <span class="toc-text">Fast RCNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Faster-RCNN"><span class="toc-number">3.3.</span> <span class="toc-text">Faster RCNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mask-RCNN"><span class="toc-number">3.4.</span> <span class="toc-text">mask RCNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VCTree"><span class="toc-number">3.5.</span> <span class="toc-text">VCTree</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scene-Graph-Benchmark%EF%BC%88%E8%80%81%E5%A9%86%E4%BA%88%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">Scene Graph Benchmark（老婆予）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conda%E5%AE%89%E8%A3%85"><span class="toc-number">5.</span> <span class="toc-text">Conda安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E5%AD%A6%E4%B9%A0tmux%E4%B8%8Escreen%E6%8C%87%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">0 学习tmux与screen指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tmux"><span class="toc-number">6.1.</span> <span class="toc-text">tmux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Setting-Environment"><span class="toc-number">7.</span> <span class="toc-text">1 Setting Environment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Training"><span class="toc-number">8.</span> <span class="toc-text">2 Training</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-PreCls-Motif-Model"><span class="toc-number">8.0.1.</span> <span class="toc-text">1.(PreCls, Motif Model)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model"><span class="toc-number">8.0.2.</span> <span class="toc-text">2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Testing"><span class="toc-number">9.</span> <span class="toc-text">3 Testing</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-PreCls-Motif-Model-1"><span class="toc-number">9.0.1.</span> <span class="toc-text">1.(PreCls, Motif Model)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-1"><span class="toc-number">9.0.2.</span> <span class="toc-text">2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Corresponding-Results"><span class="toc-number">10.</span> <span class="toc-text">4 Corresponding Results</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-PreCls-Motif-Model-2"><span class="toc-number">10.0.1.</span> <span class="toc-text">1.(PreCls, Motif Model)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-2"><span class="toc-number">10.0.2.</span> <span class="toc-text">2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)</span></a></li></ol></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -154,6 +156,260 @@
 <li>VcTree-sgdet-res101 epoch12: R@20 0.2167	mR@20 0.0983	PQ 0.3602	score 0.16</li>
 <li>psgtr-sgdet-res50 epoch60: R@20 0.2572	mR@20 0.1543	PQ 0.3446	score 0.2042</li>
 </ul>
+<h3 id="改动记录"><a href="#改动记录" class="headerlink" title="改动记录"></a>改动记录</h3><h4 id="Motif"><a href="#Motif" class="headerlink" title="Motif"></a>Motif</h4><ul>
+<li>SceneGraphPanopticFPN中， 即使不在训练的时候，pan相关信息也需要传递，以提供掩码信息。</li>
+</ul>
+<h4 id="基于Segformer的分割结果"><a href="#基于Segformer的分割结果" class="headerlink" title="基于Segformer的分割结果"></a>基于Segformer的分割结果</h4><ul>
+<li>使用segformer得到的bbox，mask以及特征，代替mask rcnn的结果进行sgg关系预测。目前的recall非常低，正在查找是何原因。</li>
+</ul>
+<h3 id="OpenPSG-及-SGG-基础的学习"><a href="#OpenPSG-及-SGG-基础的学习" class="headerlink" title="OpenPSG 及 SGG 基础的学习"></a>OpenPSG 及 SGG 基础的学习</h3><h4 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h4><ul>
+<li>Slective Search 输出建议框</li>
+<li>VGG对每个建议框提取特征</li>
+<li>SVM对每个建议框的特征进行分类</li>
+<li>回归器微调</li>
+</ul>
+<h4 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast RCNN"></a>Fast RCNN</h4><ul>
+<li>Selective Search 输出建议框</li>
+<li>对整张图像提取特征，将建议框映射到特征图上（主要改进，提速），并用ROI pooling映射到统一的大小。</li>
+<li>对每个建议框对应的特征子图展平，并</li>
+<li>用MLP分类，用回归器微调</li>
+</ul>
+<h4 id="Faster-RCNN"><a href="#Faster-RCNN" class="headerlink" title="Faster RCNN"></a>Faster RCNN</h4><ul>
+<li>在fast RCNN的基础上加上了RPN(Region Proposal Network)</li>
+<li>RPN:在给定的特征图上，使用滑动窗口的方法，每在一个像素位置上取一个特征窗口，就得到一个特征向量，每一个特征向量需要得到k个anchor box， 分别生成相应的类别分数和框系数。</li>
+</ul>
+<h4 id="mask-RCNN"><a href="#mask-RCNN" class="headerlink" title="mask RCNN"></a>mask RCNN</h4><ul>
+<li>建立在faster RCNN的基础上，并结合了FPN的思想。</li>
+<li>ROI polling换成了ROI align。前者因为取整操作存在误差， 后者通过插值的方式弥补。</li>
+<li>Mask分支：每次对一个框进行实例分割。</li>
+</ul>
+<h4 id="VCTree"><a href="#VCTree" class="headerlink" title="VCTree"></a>VCTree</h4><ul>
+<li>就是使用faster rcnn的输出，也就是检测框和标签，以及每一个框对应的ROI Align后的特征，进行之后的信息传递和关系预测。</li>
+<li>其他的内容暂时不重要。</li>
+</ul>
+<h3 id="Scene-Graph-Benchmark（老婆予）"><a href="#Scene-Graph-Benchmark（老婆予）" class="headerlink" title="Scene Graph Benchmark（老婆予）"></a>Scene Graph Benchmark（老婆予）</h3><h3 id="Conda安装"><a href="#Conda安装" class="headerlink" title="Conda安装"></a>Conda安装</h3><ol>
+<li>去清华镜像源下载对应版本的文件</li>
+</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/</a></li>
+<li>如：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-x86_64.sh">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-x86_64.sh</a></li>
+</ul>
+<ol start="2">
+<li>放到服务器上</li>
+<li>bash Anaconda3-2022.05-Linux-x86_64.sh</li>
+<li>回车键，进入注册信息页面<br>按q跳过阅读，yes<br>默认安装在用户目录下，直接回车即可安装；若想自定义安装目录，直接输入安装目录，回车即可。<br>Do you wish the installer to initialize Anaconda3 by running conda init ? 输入 yes，回车</li>
+</ol>
+<blockquote>
+<p>最后一步也可以输入No, 此时需要自行修改环境变量</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"># 2.在.bashrc文件底部添加  </span><br><span class="line"># 为了避免与其他服务器用户产生命令冲突,使用自己的英文名+Python替代python </span><br><span class="line">alias fortunePython=&#x27;/root/anaconda3/bin/python&#x27;   </span><br><span class="line">#这里写anaconda的安装路径</span><br><span class="line">export PATH=&quot;/root/anaconda3/bin:$PATH”</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ol start="5">
+<li><p>检查是否安装成功</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda --version</span><br><span class="line">#conda 4.5.11</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若此时不出现（base），则可以输入以下命令</p>
+<p>source activate</p>
+</li>
+</ol>
+<h3 id="0-学习tmux与screen指令"><a href="#0-学习tmux与screen指令" class="headerlink" title="0 学习tmux与screen指令"></a>0 学习tmux与screen指令</h3><h4 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h4><ul>
+<li><p>创建tmux会话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-s</code>是 session 的缩写，从而可以启动一个全新的tmux会话</li>
+</ul>
+</li>
+<li><p>再创建一个新的窗口</p>
+<ul>
+<li>第一步：按 Ctrl+B 组合键，然后松开。</li>
+<li>第二步：再单独按一下 c 键。</li>
+<li>Note： 在创建会话的同时，tmux 会在会话中创建一个窗口（tmux window）。其中，星号<code>*</code>表示的是“当前处于活跃状态的窗口”，也就是哪个窗口现在处于可操作状态，星号<code>*</code>就在哪个窗口的后面。</li>
+</ul>
+</li>
+<li><p>在窗口间切换</p>
+<ul>
+<li>假如我们要切换到 0：bash 这个窗口，步骤如下：<ul>
+<li>第一步：按 Ctrl-B 组合键，然后松开。</li>
+<li>第二步：按数字 0 键。</li>
+</ul>
+</li>
+<li>同理，在按下 Ctrl+B 组合键后，按相应数字键，就可以切换到相应的窗口了</li>
+</ul>
+</li>
+<li><p>退出会话，还能再回来</p>
+<ul>
+<li>第一步：输入组合键 Ctrl+B，然后松开。</li>
+<li>第二步：输入字母 d。</li>
+<li>此时，tmux环境消失了，眼前只有一行提示 [detached]。这表示，我们已经切断了办公电脑和刚才那个 tmux 之间的桥梁。现在如果你要外出，可以放心地关闭你的电脑了。</li>
+</ul>
+</li>
+<li><p>回到tmux窗口</p>
+<ul>
+<li>列出当前所有session</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进入你需要的对应名字的session（session已存在）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux a -t name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除所有session</p>
+<ul>
+<li>&#96;&#96;&#96;bash<br>Ctrl+b :kill-server<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 删除指定session</span><br><span class="line"></span><br><span class="line">  * ```bash</span><br><span class="line">    tmux kill-session -t name</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>window在session里，可以有N个window，并且window可以在不同的session里移动</p>
+<ul>
+<li><p>&#96;&#96;&#96;swift<br>&#x2F;&#x2F;创建window<br>Ctrl+b +c</p>
+<p>&#x2F;&#x2F;删除window<br>Ctrl+b &amp;</p>
+<p>&#x2F;&#x2F;下一个window<br>Ctrl+b n</p>
+<p>&#x2F;&#x2F;上一个window<br>Ctrl+b p</p>
+<p>&#x2F;&#x2F;重命名window<br>Ctrl+b ,</p>
+<p>&#x2F;&#x2F;在多个window里搜索关键字<br>Ctrl+b f</p>
+<p>&#x2F;&#x2F;在相邻的两个window里切换<br>Ctrl+b l</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* pane在window里，可以有N个pane，并且pane可以在不同的window里移动、合并、拆分</span><br><span class="line"></span><br><span class="line">  * ```csharp</span><br><span class="line">    //创建pane</span><br><span class="line">    //横切split pane horizontal</span><br><span class="line">    Ctrl+b ” (问号的上面，shift+’)</span><br><span class="line">    </span><br><span class="line">    //竖切split pane vertical</span><br><span class="line">    Ctrl+b % （shift+5）</span><br><span class="line">    </span><br><span class="line">    //按顺序在pane之间移动</span><br><span class="line">    Ctrl+b o</span><br><span class="line">    </span><br><span class="line">    //上下左右选择pane</span><br><span class="line">    Ctrl+b 方向键上下左右</span><br><span class="line">    </span><br><span class="line">    //调整pane的大小</span><br><span class="line">    Ctrl+b :resize-pane -U #向上</span><br><span class="line">    Ctrl+b :resize-pane -D #向下</span><br><span class="line">    Ctrl+b :resize-pane -L #向左</span><br><span class="line">    Ctrl+b :resize-pane -R #向右</span><br><span class="line">    在上下左右的调整里，最后的参数可以加数字 用以控制移动的大小，例如：</span><br><span class="line">    Ctrl+b :resize-pane -D 50</span><br><span class="line">    </span><br><span class="line">    //在同一个window里左右移动pane</span><br><span class="line">    Ctrl+b &#123; （往左边，往上面）</span><br><span class="line">    Ctrl+b &#125; （往右边，往下面）</span><br><span class="line">    </span><br><span class="line">    //删除pane</span><br><span class="line">    Ctrl+b x</span><br><span class="line">    //更换pane排版</span><br><span class="line">    Ctrl+b “空格”</span><br><span class="line">    </span><br><span class="line">    //移动pane至window</span><br><span class="line">    Ctrl+b !</span><br><span class="line">    </span><br><span class="line">    //移动pane合并至某个window</span><br><span class="line">    Ctrl+b :join-pane -t $window_name</span><br><span class="line">    </span><br><span class="line">    //显示pane编号</span><br><span class="line">    Ctrl+b q</span><br><span class="line">    </span><br><span class="line">    //按顺序移动pane位置</span><br><span class="line">    Ctrl+b Ctrl+o</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>其他</p>
+<ul>
+<li><pre><code class="cpp">复制模式
+Ctrl+b [
+空格标记复制开始，回车结束复制。
+
+//粘贴最后一个缓冲区内容
+Ctrl+b ]
+
+//选择性粘贴缓冲区
+Ctrl+b =
+
+//列出缓冲区目标
+Ctrl+b :list-buffer
+
+//查看缓冲区内容
+Ctrl+b :show-buffer
+
+//vi模式
+Ctrl+b :set mode-keys vi
+
+//显示时间
+Ctrl+b t
+
+//快捷键帮助
+Ctrl+b ? (Ctrl+b :list-keys)
+
+//tmux内置命令帮助
+Ctrl+b :list-commands
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### screen</span><br><span class="line"></span><br><span class="line">* 创建screen窗口</span><br><span class="line"></span><br><span class="line">  ```bash</span><br><span class="line">  screen -S name</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>创建对应名字的窗口，该窗口类似于一个后台进程，可以通过命令使得代码运行在该窗口上，并在连接断开后仍然能够运行</p>
+</li>
+<li><p>创建完窗口后，会直接跳进这个窗口</p>
+</li>
+</ul>
+</li>
+<li><p>临时退出窗口 ctrl+a+d（此时窗口仍在运行）</p>
+</li>
+<li><p>完全关闭窗口 exit</p>
+</li>
+<li><p>重新进入已创建的窗口</p>
+<ul>
+<li>查看当前存在的所有进程</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -<span class="built_in">ls</span> <span class="comment"># 显示进程对应的PID与名字</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>找到进程对应的PID并进入进程</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -r -d PID</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="1-Setting-Environment"><a href="#1-Setting-Environment" class="headerlink" title="1 Setting Environment"></a>1 Setting Environment</h3><ul>
+<li><p>CUDA版本</p>
+<ul>
+<li><p>可以使用<code>nvcc --version</code>（<code>nvcc -V</code>）查看当前cuda版本</p>
+</li>
+<li><p>一开始指向的为9.2，通过修改.&#x2F;bashrc将软链接指向10.2</p>
+</li>
+<li><p>查看服务器上已经有的cuda</p>
+<ul>
+<li><code>ls -l /usr/local/cuda*</code></li>
+</ul>
+</li>
+<li><p>修改~.&#x2F;bashrc将所需的cuda版本加入PATH</p>
+<ul>
+<li><p><code>vi ~/.bashrc</code></p>
+</li>
+<li><p>插入<code>export PATH=/usr/local/cuda-10.2/bin:$PATH</code></p>
+<p><code>export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib:$LD_LIBRARY_PATH</code></p>
+</li>
+</ul>
+</li>
+<li><p>重新连接服务器，再次通过<code>nvcc -V</code>查看，可以发现版本成功切换</p>
+</li>
+</ul>
+</li>
+<li><p>pytorch需要与CUDA版本相对应</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jb51.net/article/219003.htm">https://www.jb51.net/article/219003.htm</a></li>
+<li>不要使用过于新的pytorch</li>
+</ul>
+</li>
+<li><p>Python39版本不兼容</p>
+<ul>
+<li>conda中采用Python3.6</li>
+<li><code>conda create --name benchmark36 python=3.6</code></li>
+</ul>
+</li>
+<li><p>完整流程</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># first, make sure that your conda is setup properly with the right environment</span></span><br><span class="line"><span class="comment"># for that, check that `which conda`, `which pip` and `which python` points to the</span></span><br><span class="line"><span class="comment"># right path. From a clean conda env, this is what you need to do</span></span><br><span class="line"></span><br><span class="line">conda create --name scene_graph_benchmark</span><br><span class="line">conda activate scene_graph_benchmark</span><br><span class="line"></span><br><span class="line"><span class="comment"># this installs the right pip and dependencies for the fresh python</span></span><br><span class="line">conda install ipython</span><br><span class="line">conda install scipy</span><br><span class="line">conda install h5py</span><br><span class="line"></span><br><span class="line"><span class="comment"># scene_graph_benchmark and coco api dependencies</span></span><br><span class="line">pip install ninja yacs cython matplotlib tqdm opencv-python overrides</span><br><span class="line"></span><br><span class="line"><span class="comment"># follow PyTorch installation in https://pytorch.org/get-started/locally/</span></span><br><span class="line"><span class="comment"># we give the instructions for CUDA 10.2</span></span><br><span class="line">conda install pytorch==1.7.0 torchvision==0.8.0 cudatoolkit=10.2 -c pytorch</span><br><span class="line">conda install pytorch==1.4.0 torchvision==0.5.0 cudatoolkit=10.1 -c pytorch</span><br><span class="line">conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0 -c pytorch</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> INSTALL_DIR=<span class="variable">$PWD</span> <span class="comment"># 非必需，只是设置个路径，方便后续操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># install pycocotools</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$INSTALL_DIR</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/cocodataset/cocoapi.git <span class="comment"># 非必需</span></span><br><span class="line"><span class="comment"># git clone一次即可，不需要每一次都clone</span></span><br><span class="line"><span class="built_in">cd</span> cocoapi/PythonAPI</span><br><span class="line"><span class="comment"># 只需要每次进入对应的路径，并执行python setup.py xxx install指令</span></span><br><span class="line">python setup.py build_ext install</span><br><span class="line"></span><br><span class="line"><span class="comment"># install apex</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$INSTALL_DIR</span> </span><br><span class="line">git <span class="built_in">clone</span> https://github.com/NVIDIA/apex.git <span class="comment"># 非必需</span></span><br><span class="line"><span class="built_in">cd</span> apex</span><br><span class="line">python setup.py install --cuda_ext --cpp_ext</span><br><span class="line"></span><br><span class="line"><span class="comment"># install PyTorch Detection</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$INSTALL_DIR</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch.git <span class="comment"># 非必需</span></span><br><span class="line"><span class="built_in">cd</span> scene-graph-benchmark</span><br><span class="line"></span><br><span class="line"><span class="comment"># the following will install the lib with</span></span><br><span class="line"><span class="comment"># symbolic links, so that you can modify</span></span><br><span class="line"><span class="comment"># the files if you want and won&#x27;t need to</span></span><br><span class="line"><span class="comment"># re-build it</span></span><br><span class="line">python setup.py build develop</span><br><span class="line"></span><br><span class="line"><span class="built_in">unset</span> INSTALL_DIR <span class="comment"># 非必需</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Training"><a href="#2-Training" class="headerlink" title="2 Training"></a>2 Training</h3><h5 id="1-PreCls-Motif-Model"><a href="#1-PreCls-Motif-Model" class="headerlink" title="1.(PreCls, Motif Model)"></a>1.(PreCls, Motif Model)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --master_port 10025 --nproc_per_node=2 tools/relation_train_net.py --config-file <span class="string">&quot;configs/e2e_relation_X_101_32_8_FPN_1x.yaml&quot;</span> MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR MotifPredictor SOLVER.IMS_PER_BATCH 12 TEST.IMS_PER_BATCH 2 DTYPE <span class="string">&quot;float16&quot;</span> SOLVER.MAX_ITER 50000 SOLVER.VAL_PERIOD 2000 SOLVER.CHECKPOINT_PERIOD 2000 GLOVE_DIR /home/shr/benchmark/Scene-Graph-Benchmark.pytorch/glove/ MODEL.PRETRAINED_DETECTOR_CKPT /home/shr/checkpoints/pretrained_faster_rcnn/model_final.pth OUTPUT_DIR /home/shr/checkpoints/motif-precls-exmp</span><br></pre></td></tr></table></figure>
+
+<p>where <code>GLOVE_DIR</code> is the directory used to save glove initializations, <code>MODEL.PRETRAINED_DETECTOR_CKPT</code> is the pretrained Faster R-CNN model you want to load, <code>OUTPUT_DIR</code> is the output directory used to save checkpoints and the log. Since we use the <code>WarmupReduceLROnPlateau</code> as the learning scheduler for SGG, <code>SOLVER.STEPS</code> is not required anymore.</p>
+<blockquote>
+<ul>
+<li>遇到了RunTime Error: CUDA out of memory的问题<ul>
+<li>下次可以尝试将batch size调小一些，即将SOLVER.IMS_PER_BATCH 12中的12改为较小的数值，TEST.IMS_PER_BATCH 2此处无需改变</li>
+</ul>
+</li>
+<li>与示例相比，需要改动之处<ul>
+<li>glove目录，若没有对应文件，初次train的时候会自动下载</li>
+<li>需要load的模型地址</li>
+<li>输出文件想要存的地址</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h5 id="2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model"><a href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model" class="headerlink" title="2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)"></a>2.(SGCls, Causal, <strong>TDE</strong>, SUM Fusion, MOTIFS Model)</h5><ul>
+<li>第一步 tmux创建一个新的会话</li>
+<li>第二步 source activate benchmark36</li>
+<li>进入对应目录，shr@dcd-gsl-4:~&#x2F;benchmark&#x2F;Scene-Graph-Benchmark.pytorch$，执行以下指令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --master_port 10026 --nproc_per_node=2 tools/relation_train_net.py --config-file <span class="string">&quot;configs/e2e_relation_X_101_32_8_FPN_1x.yaml&quot;</span> MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL False MODEL.ROI_RELATION_HEAD.PREDICTOR CausalAnalysisPredictor MODEL.ROI_RELATION_HEAD.CAUSAL.EFFECT_TYPE none MODEL.ROI_RELATION_HEAD.CAUSAL.FUSION_TYPE <span class="built_in">sum</span> MODEL.ROI_RELATION_HEAD.CAUSAL.CONTEXT_LAYER motifs  SOLVER.IMS_PER_BATCH 12 TEST.IMS_PER_BATCH 2 DTYPE <span class="string">&quot;float16&quot;</span> SOLVER.MAX_ITER 50000 SOLVER.VAL_PERIOD 2000 SOLVER.CHECKPOINT_PERIOD 2000 GLOVE_DIR /home/shr/benchmark/Scene-Graph-Benchmark.pytorch/glove/ MODEL.PRETRAINED_DETECTOR_CKPT /home/shr/checkpoints/pretrained_faster_rcnn/model_final.pth OUTPUT_DIR /home/shr/checkpoints/causal-motifs-sgcls-exmp</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>满心欢喜以为环境没啥问题了，结果RuntimeError: cuDNN error: CUDNN_STATUS_EXECUTION_FAILED<br>Traceback (most recent call last):<br>File “&#x2F;home&#x2F;shr&#x2F;anaconda3&#x2F;envs&#x2F;benchmark36&#x2F;lib&#x2F;python3.6&#x2F;runpy.py”, line 193, in _run_module_as_main<br> “<strong>main</strong>“, mod_spec)<br>File “&#x2F;home&#x2F;shr&#x2F;anaconda3&#x2F;envs&#x2F;benchmark36&#x2F;lib&#x2F;python3.6&#x2F;runpy.py”, line 85, in _run_code<br> exec(code, run_globals)<br>File “&#x2F;home&#x2F;shr&#x2F;anaconda3&#x2F;envs&#x2F;benchmark36&#x2F;lib&#x2F;python3.6&#x2F;site-packages&#x2F;torch&#x2F;distributed&#x2F;launch.py”, line 260, in <module><br> main()<br>File “&#x2F;home&#x2F;shr&#x2F;anaconda3&#x2F;envs&#x2F;benchmark36&#x2F;lib&#x2F;python3.6&#x2F;site-packages&#x2F;torch&#x2F;distributed&#x2F;launch.py”, line 256, in main<br> cmd&#x3D;cmd)<br>subprocess.CalledProcessError: Command ‘[‘&#x2F;home&#x2F;shr&#x2F;anaconda3&#x2F;envs&#x2F;benchmark36&#x2F;bin&#x2F;python’, ‘-u’, ‘tools&#x2F;relation_train_net.py’, ‘–local_rank&#x3D;1’, ‘–config-file’, ‘configs&#x2F;e2e_relation_X_101_32_8_FPN_1x.yaml’, ‘MODEL.ROI_RELATION_HEAD.USE_GT_BOX’, ‘True’, ‘MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL’, ‘False’, ‘MODEL.ROI_RELATION_HEAD.PREDICTOR’, ‘CausalAnalysisPredictor’, ‘MODEL.ROI_RELATION_HEAD.CAUSAL.EFFECT_TYPE’, ‘none’, ‘MODEL.ROI_RELATION_HEAD.CAUSAL.FUSION_TYPE’, ‘sum’, ‘MODEL.ROI_RELATION_HEAD.CAUSAL.CONTEXT_LAYER’, ‘motifs’, ‘SOLVER.IMS_PER_BATCH’, ‘12’, ‘TEST.IMS_PER_BATCH’, ‘2’, ‘DTYPE’, ‘float16’, ‘SOLVER.MAX_ITER’, ‘50000’, ‘SOLVER.VAL_PERIOD’, ‘2000’, ‘SOLVER.CHECKPOINT_PERIOD’, ‘2000’, ‘GLOVE_DIR’, ‘&#x2F;home&#x2F;shr&#x2F;benchmark&#x2F;Scene-Graph-Benchmark.pytorch&#x2F;glove&#x2F;‘, ‘MODEL.PRETRAINED_DETECTOR_CKPT’, ‘&#x2F;home&#x2F;shr&#x2F;checkpoints&#x2F;pretrained_faster_rcnn&#x2F;model_final.pth’, ‘OUTPUT_DIR’, ‘&#x2F;home&#x2F;shr&#x2F;checkpoints&#x2F;causal-motifs-sgcls-exmp’]’ returned non-zero exit status 1.</p>
+<p>上网搜索了一下解决方案</p>
+<ul>
+<li>尝试减小batch size大小</li>
+<li>加指令 torch.backends.cudnn.enabled&#x3D;False，但是运行速度会变得很慢</li>
+</ul>
+</blockquote>
+<h3 id="3-Testing"><a href="#3-Testing" class="headerlink" title="3 Testing"></a>3 Testing</h3><h5 id="1-PreCls-Motif-Model-1"><a href="#1-PreCls-Motif-Model-1" class="headerlink" title="1.(PreCls, Motif Model)"></a>1.(PreCls, Motif Model)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10027 --nproc_per_node=1 tools/relation_test_net.py --config-file <span class="string">&quot;configs/e2e_relation_X_101_32_8_FPN_1x.yaml&quot;</span> MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR MotifPredictor TEST.IMS_PER_BATCH 1 DTYPE <span class="string">&quot;float16&quot;</span> GLOVE_DIR /home/shr/benchmark/Scene-Graph-Benchmark.pytorch/glove/ MODEL.PRETRAINED_DETECTOR_CKPT /home/shr/checkpoints/motif-precls-exmp OUTPUT_DIR /home/shr/checkpoints/motif-precls-exmp</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Testing的log内容不会自动保存，可以把需要的结果print截图或者复制下来自动保存，也可以下次自己存一下test的log</p>
+<p>test的时候，output dir应该是用来load checkpoint的。test时不会存checkpoint只会load</p>
+</blockquote>
+<h5 id="2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-1"><a href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-1" class="headerlink" title="2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)"></a>2.(SGCls, Causal, <strong>TDE</strong>, SUM Fusion, MOTIFS Model)</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10028 --nproc_per_node=1 tools/relation_test_net.py --config-file <span class="string">&quot;configs/e2e_relation_X_101_32_8_FPN_1x.yaml&quot;</span> MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL False MODEL.ROI_RELATION_HEAD.PREDICTOR CausalAnalysisPredictor MODEL.ROI_RELATION_HEAD.CAUSAL.EFFECT_TYPE TDE MODEL.ROI_RELATION_HEAD.CAUSAL.FUSION_TYPE <span class="built_in">sum</span> MODEL.ROI_RELATION_HEAD.CAUSAL.CONTEXT_LAYER motifs  TEST.IMS_PER_BATCH 1 DTYPE <span class="string">&quot;float16&quot;</span> GLOVE_DIR /home/shr/benchmark/Scene-Graph-Benchmark.pytorch/glove/ MODEL.PRETRAINED_DETECTOR_CKPT /home/shr/checkpoints/causal-motifs-sgcls-exmp OUTPUT_DIR /home/shr/checkpoints/causal-motifs-sgcls-exmp</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Corresponding-Results"><a href="#4-Corresponding-Results" class="headerlink" title="4 Corresponding Results"></a>4 Corresponding Results</h3><h5 id="1-PreCls-Motif-Model-2"><a href="#1-PreCls-Motif-Model-2" class="headerlink" title="1.(PreCls, Motif Model)"></a>1.(PreCls, Motif Model)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SGG eval:  R @ 20: 0.5889;     R @ 50: 0.6539;     R @ 100: 0.6711;  for mode=predcls, type=Recall(Main).</span><br><span class="line">SGG eval:  ng-R @ 20: 0.6712;  ng-R @ 50: 0.8168;  ng-R @ 100: 0.8873;  for mode=predcls, type=No Graph Constraint Recall(Main).</span><br><span class="line">SGG eval:  zR @ 20: 0.0110;    zR @ 50: 0.0313;    zR @ 100: 0.0512;  for mode=predcls, type=Zero Shot Recall.</span><br><span class="line">SGG eval:  ng-zR @ 20: 0.0132; ng-zR @ 50: 0.0569; ng-zR @ 100: 0.1426;  for mode=predcls, type=No Graph Constraint Zero Shot Recall.</span><br><span class="line">SGG eval:  mR @ 20: 0.1220;    mR @ 50: 0.1559;    mR @ 100: 0.1689;  for mode=predcls, type=Mean Recall.</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-2"><a href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-2" class="headerlink" title="2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)"></a>2.(SGCls, Causal, <strong>TDE</strong>, SUM Fusion, MOTIFS Model)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Accumulating evaluation results...</span><br><span class="line">DONE (t=34.21s).</span><br><span class="line"> Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.568</span><br><span class="line"> Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.574</span><br><span class="line"> Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.568</span><br><span class="line"> Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.464</span><br><span class="line"> Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.550</span><br><span class="line"> Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.533</span><br><span class="line"> Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.418</span><br><span class="line"> Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.638</span><br><span class="line"> Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.642</span><br><span class="line"> Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.535</span><br><span class="line"> Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.621</span><br><span class="line"> Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.607</span><br><span class="line">Num of GT boxes is not matching with num of pred boxes in SGCLS</span><br><span class="line">Num of GT boxes is not matching with num of pred boxes in SGCLS</span><br><span class="line">Num of GT boxes is not matching with num of pred boxes in SGCLS</span><br><span class="line">2021-12-10 11:46:59,239 maskrcnn_benchmark.inference INFO: </span><br><span class="line">====================================================================================================</span><br><span class="line">Detection evaluation mAp=0.5740</span><br><span class="line">====================================================================================================</span><br><span class="line">SGG eval:     R @ 20: 0.2105;     R @ 50: 0.2663;     R @ 100: 0.2905;  for mode=sgcls, type=Recall(Main).</span><br><span class="line">SGG eval:  ng-R @ 20: 0.2360;  ng-R @ 50: 0.3319;  ng-R @ 100: 0.3987;  for mode=sgcls, type=No Graph Constraint Recall(Main).</span><br><span class="line">SGG eval:    zR @ 20: 0.0218;    zR @ 50: 0.0324;    zR @ 100: 0.0422;  for mode=sgcls, type=Zero Shot Recall.</span><br><span class="line">SGG eval: ng-zR @ 20: 0.0254; ng-zR @ 50: 0.0460; ng-zR @ 100: 0.0727;  for mode=sgcls, type=No Graph Constraint Zero Shot Recall.</span><br><span class="line">SGG eval:    mR @ 20: 0.0772;    mR @ 50: 0.1045;    mR @ 100: 0.1210;  for mode=sgcls, type=Mean Recall.</span><br><span class="line">----------------------- Details ------------------------</span><br><span class="line">(above:0.2349) (across:0.0000) (against:0.0000) (along:0.1468) (and:0.0000) (at:0.2893) (attached to:0.0000) (behind:0.3745) (belonging to:0.0000) (between:0.0000) (carrying:0.3032) (covered in:0.0238) (covering:0.0000) (eating:0.0596) (flying in:0.0000) (for:0.0102) (from:0.0000) (growing on:0.0000) (hanging from:0.0000) (has:0.4990) (holding:0.2198) (in:0.1758) (in front of:0.1956) (laying on:0.0405) (looking at:0.0201) (lying on:0.0000) (made of:0.0000) (mounted on:0.0000) (near:0.0784) (of:0.5121) (on:0.1573) (on back of:0.0000) (over:0.0000) (painted on:0.0000) (parked on:0.6191) (part of:0.0000) (playing:0.0000) (riding:0.4570) (says:0.0000) (sitting on:0.2219) (standing on:0.0720) (to:0.0000) (under:0.1784) (using:0.0625) (walking in:0.0000) (walking on:0.3948) (watching:0.1433) (wearing:0.4899) (wears:0.0000) (with:0.0699) </span><br><span class="line">--------------------------------------------------------</span><br><span class="line">SGG eval: ng-mR @ 20: 0.0870; ng-mR @ 50: 0.1343; ng-mR @ 100: 0.1788;  for mode=sgcls, type=No Graph Constraint Mean Recall.</span><br><span class="line">----------------------- Details ------------------------</span><br><span class="line">(above:0.3384) (across:0.0159) (against:0.0000) (along:0.1858) (and:0.0473) (at:0.3326) (attached to:0.1103) (behind:0.4134) (belonging to:0.2969) (between:0.0069) (carrying:0.3274) (covered in:0.1113) (covering:0.0129) (eating:0.1060) (flying in:0.0000) (for:0.0922) (from:0.0000) (growing on:0.0000) (hanging from:0.0303) (has:0.5212) (holding:0.2995) (in:0.2164) (in front of:0.2757) (laying on:0.2260) (looking at:0.1178) (lying on:0.0408) (made of:0.0000) (mounted on:0.0000) (near:0.2311) (of:0.5327) (on:0.3083) (on back of:0.0000) (over:0.0471) (painted on:0.0000) (parked on:0.6078) (part of:0.0494) (playing:0.0000) (riding:0.4628) (says:0.0000) (sitting on:0.2782) (standing on:0.1962) (to:0.0082) (under:0.2427) (using:0.1862) (walking in:0.0000) (walking on:0.4102) (watching:0.1670) (wearing:0.4876) (wears:0.3721) (with:0.2250) </span><br><span class="line">--------------------------------------------------------</span><br><span class="line">SGG eval:     A @ 20: 0.3108;     A @ 50: 0.3114;     A @ 100: 0.3114;  for mode=sgcls, type=TopK Accuracy.</span><br></pre></td></tr></table></figure>
+
 
   </div>
 </article>
@@ -179,7 +435,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">提交记录</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">提交记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E5%8A%A8%E8%AE%B0%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">改动记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Motif"><span class="toc-number">2.1.</span> <span class="toc-text">Motif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ESegformer%E7%9A%84%E5%88%86%E5%89%B2%E7%BB%93%E6%9E%9C"><span class="toc-number">2.2.</span> <span class="toc-text">基于Segformer的分割结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenPSG-%E5%8F%8A-SGG-%E5%9F%BA%E7%A1%80%E7%9A%84%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text">OpenPSG 及 SGG 基础的学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#R-CNN"><span class="toc-number">3.1.</span> <span class="toc-text">R-CNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fast-RCNN"><span class="toc-number">3.2.</span> <span class="toc-text">Fast RCNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Faster-RCNN"><span class="toc-number">3.3.</span> <span class="toc-text">Faster RCNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mask-RCNN"><span class="toc-number">3.4.</span> <span class="toc-text">mask RCNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VCTree"><span class="toc-number">3.5.</span> <span class="toc-text">VCTree</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scene-Graph-Benchmark%EF%BC%88%E8%80%81%E5%A9%86%E4%BA%88%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">Scene Graph Benchmark（老婆予）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conda%E5%AE%89%E8%A3%85"><span class="toc-number">5.</span> <span class="toc-text">Conda安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E5%AD%A6%E4%B9%A0tmux%E4%B8%8Escreen%E6%8C%87%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">0 学习tmux与screen指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tmux"><span class="toc-number">6.1.</span> <span class="toc-text">tmux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Setting-Environment"><span class="toc-number">7.</span> <span class="toc-text">1 Setting Environment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Training"><span class="toc-number">8.</span> <span class="toc-text">2 Training</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-PreCls-Motif-Model"><span class="toc-number">8.0.1.</span> <span class="toc-text">1.(PreCls, Motif Model)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model"><span class="toc-number">8.0.2.</span> <span class="toc-text">2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Testing"><span class="toc-number">9.</span> <span class="toc-text">3 Testing</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-PreCls-Motif-Model-1"><span class="toc-number">9.0.1.</span> <span class="toc-text">1.(PreCls, Motif Model)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-1"><span class="toc-number">9.0.2.</span> <span class="toc-text">2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Corresponding-Results"><span class="toc-number">10.</span> <span class="toc-text">4 Corresponding Results</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-PreCls-Motif-Model-2"><span class="toc-number">10.0.1.</span> <span class="toc-text">1.(PreCls, Motif Model)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-SGCls-Causal-TDE-SUM-Fusion-MOTIFS-Model-2"><span class="toc-number">10.0.2.</span> <span class="toc-text">2.(SGCls, Causal, TDE, SUM Fusion, MOTIFS Model)</span></a></li></ol></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
