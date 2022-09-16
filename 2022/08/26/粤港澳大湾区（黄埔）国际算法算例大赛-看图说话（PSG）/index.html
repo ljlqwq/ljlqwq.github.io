@@ -14,7 +14,7 @@
 <meta property="og:description" content="提交记录 VcTree-predcls-res50 epoch12: R@20 0.1487	mR@20 0.0573	PQ 0.343	score 0.1133 VcTree-sgdet-res50 epoch12: R@20 0.205	mR@20 0.0974	PQ 0.343	score 0.1542 VcTree-sgdet-res101 epoch12: R@20 0.2167	mR@">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-08-26T08:45:21.000Z">
-<meta property="article:modified_time" content="2022-09-14T10:33:11.690Z">
+<meta property="article:modified_time" content="2022-09-16T08:57:21.271Z">
 <meta property="article:author" content="big jiale">
 <meta property="article:tag" content="competition">
 <meta name="twitter:card" content="summary">
@@ -160,7 +160,12 @@
 <li>SceneGraphPanopticFPN中， 即使不在训练的时候，pan相关信息也需要传递，以提供掩码信息。</li>
 </ul>
 <h4 id="基于Segformer的分割结果"><a href="#基于Segformer的分割结果" class="headerlink" title="基于Segformer的分割结果"></a>基于Segformer的分割结果</h4><ul>
-<li>使用segformer得到的bbox，mask以及特征，代替mask rcnn的结果进行sgg关系预测。目前的recall非常低，正在查找是何原因。</li>
+<li>使用segformer得到的bbox，mask以及特征，代替mask rcnn的结果进行sgg关系预测。目前的recall非常低，正在查找是何原因。<ul>
+<li>原因1:coco原生的目标框定义和psg的数据集的目标框的定义不同，前者第二个点为中心点，后者第二个点为右下点；</li>
+<li>原因2:coco原生的label与psg的label定义不同，需要进行映射；</li>
+<li>原因3:使用segformer得到的框是定义在原图上的，而openpsg中是定义在resize之后的图上的，需要进行尺度上的映射</li>
+</ul>
+</li>
 </ul>
 <h3 id="OpenPSG-及-SGG-基础的学习"><a href="#OpenPSG-及-SGG-基础的学习" class="headerlink" title="OpenPSG 及 SGG 基础的学习"></a>OpenPSG 及 SGG 基础的学习</h3><h4 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h4><ul>
 <li>Slective Search 输出建议框</li>
