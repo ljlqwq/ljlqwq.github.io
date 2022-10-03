@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="docker 基础操作 列出本地镜像		 docker images 下载镜像                docker pull name:version 删除镜像                docker rmi name&#x2F;ID 列出运行容器        docker ps 列出所有容器        docker ps -a 新建容器               docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用docker制作比赛镜像">
+<meta property="og:url" content="http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="docker 基础操作 列出本地镜像		 docker images 下载镜像                docker pull name:version 删除镜像                docker rmi name&#x2F;ID 列出运行容器        docker ps 列出所有容器        docker ps -a 新建容器               docker">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-03T05:43:21.000Z">
+<meta property="article:modified_time" content="2022-10-03T06:04:44.785Z">
+<meta property="article:author" content="big jiale">
+<meta property="article:tag" content="competition">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>使用docker制作比赛镜像</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/09/12/%E5%A5%BD%E8%AF%8D%E5%A5%BD%E5%8F%A5/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&text=使用docker制作比赛镜像"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&is_video=false&description=使用docker制作比赛镜像"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用docker制作比赛镜像&body=Check out this article: http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&name=使用docker制作比赛镜像&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&t=使用docker制作比赛镜像"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">docker 基础操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86conda%E7%8E%AF%E5%A2%83%E5%88%B6%E4%BD%9C%E4%B8%BA%E9%95%9C%E5%83%8F"><span class="toc-number">2.</span> <span class="toc-text">将conda环境制作为镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84docker%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">我的docker镜像制作流程</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        使用docker制作比赛镜像
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">big jiale</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-10-03T05:43:21.000Z" itemprop="datePublished">2022-10-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/competition/" rel="tag">competition</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="docker-基础操作"><a href="#docker-基础操作" class="headerlink" title="docker 基础操作"></a>docker 基础操作</h2><ul>
+<li>列出本地镜像		 docker images</li>
+<li>下载镜像                docker pull name:version</li>
+<li>删除镜像                docker rmi name&#x2F;ID</li>
+<li>列出运行容器        docker ps</li>
+<li>列出所有容器        docker ps -a</li>
+<li>新建容器               docker run -it 镜像名&#x2F;ID</li>
+<li>关闭并退出容器    exit（ctrl+d）</li>
+<li>暂时离开容器        crtl+p，ctrl+q</li>
+<li>进入后台运行的容器 docker attach id </li>
+<li>关闭容器                docker kill id</li>
+<li>复制文件                docker cp 本地文件路径 container_id:&#x2F;容器文件路径</li>
+<li>容器保存为镜像     docker commit 容器ID 镜像名:v版本</li>
+<li>输出镜像                docker save -o XXXXX.tar 镜像ID</li>
+<li>修改文件权限         sudo chmod a+rw &#x2F;XXX&#x2F;8f77aae9a091.tar</li>
+</ul>
+<h2 id="将conda环境制作为镜像"><a href="#将conda环境制作为镜像" class="headerlink" title="将conda环境制作为镜像"></a>将conda环境制作为镜像</h2><ul>
+<li><p>docker pull continuumio&#x2F;anaconda3     #下载装有anaconda的镜像</p>
+</li>
+<li><p>docker run -it –name new_anaconda continuumio&#x2F;anaconda3 &#x2F;bin&#x2F;bash       # 使用该镜像进入该容器</p>
+</li>
+<li><p>容器中的anaconda的位置在 &#x2F;opt&#x2F;conda&#x2F;envs</p>
+</li>
+<li><p>docker cp local_anaconda_path&#x2F;envs&#x2F;envs_name new_anaconda:&#x2F;opt&#x2F;conda&#x2F;envs    # 将本地的虚拟环境复制到相应的位置</p>
+</li>
+<li><p>docker commit new_anaconda new_anaconda_image # 导出新镜像</p>
+</li>
+<li><p>docker save new_anaconda_image -o new_anaconda_image.tar      # 生成镜像文件</p>
+</li>
+</ul>
+<h2 id="我的docker镜像制作流程"><a href="#我的docker镜像制作流程" class="headerlink" title="我的docker镜像制作流程"></a>我的docker镜像制作流程</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">docker 基础操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86conda%E7%8E%AF%E5%A2%83%E5%88%B6%E4%BD%9C%E4%B8%BA%E9%95%9C%E5%83%8F"><span class="toc-number">2.</span> <span class="toc-text">将conda环境制作为镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84docker%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">我的docker镜像制作流程</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&text=使用docker制作比赛镜像"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&is_video=false&description=使用docker制作比赛镜像"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用docker制作比赛镜像&body=Check out this article: http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&title=使用docker制作比赛镜像"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&name=使用docker制作比赛镜像&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/03/%E4%BD%BF%E7%94%A8docker%E5%88%B6%E4%BD%9C%E6%AF%94%E8%B5%9B%E9%95%9C%E5%83%8F/&t=使用docker制作比赛镜像"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    big jiale
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
