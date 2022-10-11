@@ -14,7 +14,7 @@
 <meta property="og:description" content="小李对labuladong 的算法小抄 的学习 进行中。。。第零章 核心框架汇总1、学习算法和刷题的框架思维 数据结构的存储方式   数组（顺序存储）和链表（链式存储）   数据结构的基本操作   遍历 ， 访问， 高效的增删改查  2、我的刷题心得 穷举的两个关键点：无遗漏，无冗余 数组&#x2F;单链表 技巧：双指针，二分，滑动窗口，回文串，前缀，差分数组 二叉树 技巧：遍历二叉树；分解问题">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-09T07:21:29.000Z">
-<meta property="article:modified_time" content="2022-10-09T14:28:09.828Z">
+<meta property="article:modified_time" content="2022-10-10T02:46:26.639Z">
 <meta property="article:author" content="big jiale">
 <meta property="article:tag" content="学习ing">
 <meta name="twitter:card" content="summary">
@@ -191,6 +191,45 @@
 <blockquote>
 <p>使用优先队列（小根堆）对所有列表的第一个数字进行排序</p>
 <p>tips：还有一种方法，是分治法，不断两两合并然后得到最后的结果。</p>
+</blockquote>
+<ul>
+<li>单链表的倒数第k个节点</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getKthFromEnd</span>(<span class="params">self, head: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">        fast = head</span><br><span class="line">        slow = head</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> fast:</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用双指针标记尾部位置，实现一遍遍历。</p>
+</blockquote>
+<ul>
+<li>删除链表倒数第N个节点</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">removeNthFromEnd</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode], n: <span class="built_in">int</span></span>) -&gt; <span class="type">Optional</span>[ListNode]:</span><br><span class="line">        dummy = ListNode(val=-<span class="number">1</span>, <span class="built_in">next</span>=head)</span><br><span class="line">        fast, slow = dummy, dummy</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> fast.<span class="built_in">next</span>:</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">        slow.<span class="built_in">next</span> = slow.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>同样是使用双指针的方法，但是使用虚拟节点避免空值情况</p>
+</blockquote>
+<ul>
+<li>链表的中间节点</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">middleNode</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">        fast, slow = head, head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> fast <span class="keyword">and</span> fast.<span class="built_in">next</span>:</span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>双指针实现，快慢指针速度分别为1和2</p>
+</blockquote>
+<ul>
+<li>判断链表是否包含环</li>
+</ul>
+<blockquote>
+<p>快慢指针，若快指针到达None，则无环；若快慢指针相遇，则有环。</p>
+</blockquote>
+<ul>
+<li>相交链表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getIntersectionNode</span>(<span class="params">self, headA: ListNode, headB: ListNode</span>) -&gt; <span class="type">Optional</span>[ListNode]:</span><br><span class="line">        <span class="keyword">if</span> headA == <span class="literal">None</span> <span class="keyword">or</span> headB == <span class="literal">None</span>: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        p1, p2 = headA, headB</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> p1 != p2:</span><br><span class="line">            <span class="keyword">if</span> p1 != <span class="literal">None</span>:</span><br><span class="line">                p1 = p1.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p1 = headB</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> p2 != <span class="literal">None</span>:</span><br><span class="line">                p2 = p2.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p2 = headA</span><br><span class="line">        <span class="keyword">return</span> p1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>若相交，链表A： a+c, 链表B : b+c. a+c+b+c &#x3D; b+c+a+c 。则会在公共处c起点相遇。若不相交，a +b &#x3D; b+a 。因此相遇处是NULL</p>
+<p>还有一种方法，就是分别获取两个链表的长度，，让长的链表先走长度差的步数后使得二者长度相同，接着再进行遍历。</p>
 </blockquote>
 
   </div>

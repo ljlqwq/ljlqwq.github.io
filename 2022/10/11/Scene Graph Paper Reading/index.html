@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Scene Graph Paper Reading1.Visual Relationship Detection with Language PriorsECCV 2016 http:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1608.00187v1 两大发现 尽管大多数的relationship并不常见，但是它们的object和predicate却更频繁地独立出现。 利用这个insight分别独立训练ob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Scene Graph Paper Reading1.Visual Relationship Detection with Language PriorsECCV 2016 http:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1608.00187v1 两大发现 尽管大多数的relationship并不常见，但是它们的object和predicate却更频繁地独立出现。 利用这个insight分别独立训练ob">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144043217.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144553378.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144619310.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144627199.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144652104.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181120102937639.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144705674.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144713741.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181101174510117.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181101174514771.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211115154019751.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d4cf455fd8184c749701bc12d5c3500c.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211128171006541.png">
+<meta property="og:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211203220936802.png">
+<meta property="article:published_time" content="2022-10-11T07:40:10.937Z">
+<meta property="article:modified_time" content="2022-10-11T07:40:10.974Z">
+<meta property="article:author" content="big jiale">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/SHR/AppData/Roaming/Typora/typora-user-images/image-20211029144043217.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Hexo</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/10/09/ubuntu%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&is_video=false&description="><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&name=&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Scene-Graph-Paper-Reading"><span class="toc-number">1.</span> <span class="toc-text">Scene Graph Paper Reading</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Visual-Relationship-Detection-with-Language-Priors"><span class="toc-number">1.1.</span> <span class="toc-text">1.Visual Relationship Detection with Language Priors</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ECCV-2016-http-arxiv-org-pdf-1608-00187v1"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">ECCV 2016 http:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1608.00187v1</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Training-Approach"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">Training Approach</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Testing"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">Testing</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Pixels-to-Graphs-by-Associative-Embedding"><span class="toc-number">1.2.</span> <span class="toc-text">2.Pixels to Graphs by Associative Embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#NIPS-2017-http-arxiv-org-pdf-1706-07365v2"><span class="toc-number">1.2.0.0.1.</span> <span class="toc-text">NIPS 2017 http:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1706.07365v2</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Detecting-graph-elements"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">Detecting graph elements</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Connecting-elements-with-associative-embedding"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">Connecting elements with associative embedding</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Support-for-overlapping-detections"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">Support for overlapping detections</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.2.0.3.1.</span> <span class="toc-text">实验</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Neural-Motifs-Scene-Graph-Parsing-with-Global-Context"><span class="toc-number">1.3.</span> <span class="toc-text">3.Neural Motifs: Scene Graph Parsing with Global Context</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2018-DOI-10-1109-x2F-CVPR-2018-00611"><span class="toc-number">1.3.0.0.1.</span> <span class="toc-text">CVPR 2018 DOI:10.1109&#x2F;CVPR.2018.00611</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%9B%BE%E5%BD%A2%E5%BC%8F%E5%8C%96%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">场景图形式化定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#quantitative-insights-on-the-structural-regularities-of-scene-graphs"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">quantitative insights on the structural regularities of scene graphs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Stacked-Motif-Network-MOTIFNET"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">Stacked Motif Network (MOTIFNET)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Learning-to-Compose-Dynamic-Tree-Structures-for-Visual-Contexts"><span class="toc-number">1.4.</span> <span class="toc-text">4.Learning to Compose Dynamic Tree Structures for Visual Contexts</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2019-https-arxiv-org-abs-1812-01880"><span class="toc-number">1.4.0.0.1.</span> <span class="toc-text">CVPR 2019 https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1812.01880</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Knowledge-Embedded-Routing-Network-for-Scene-Graph-Generation"><span class="toc-number">1.5.</span> <span class="toc-text">5.Knowledge-Embedded Routing Network for Scene Graph Generation</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2019-arXiv-1903-03326"><span class="toc-number">1.5.0.0.1.</span> <span class="toc-text">CVPR 2019  arXiv:1903.03326</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Scene-Graph-Generation-by-Iterative-Message-Passing"><span class="toc-number">1.6.</span> <span class="toc-text">6.Scene Graph Generation by Iterative Message Passing</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2017-arXiv-1701-02426"><span class="toc-number">1.6.0.0.1.</span> <span class="toc-text">CVPR 2017  arXiv:1701.02426</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Scene-Graph-Generation-from-Objects-Phrases-and-Region-Captions"><span class="toc-number">1.7.</span> <span class="toc-text">7.Scene Graph Generation from Objects, Phrases and Region Captions</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2017-arXiv-1707-09700"><span class="toc-number">1.7.0.0.1.</span> <span class="toc-text">CVPR 2017  arXiv:1707.09700</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">big jiale</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-10-11T07:40:10.937Z" itemprop="datePublished">2022-10-11</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Scene-Graph-Paper-Reading"><a href="#Scene-Graph-Paper-Reading" class="headerlink" title="Scene Graph Paper Reading"></a>Scene Graph Paper Reading</h1><h2 id="1-Visual-Relationship-Detection-with-Language-Priors"><a href="#1-Visual-Relationship-Detection-with-Language-Priors" class="headerlink" title="1.Visual Relationship Detection with Language Priors"></a>1.Visual Relationship Detection with Language Priors</h2><h5 id="ECCV-2016-http-arxiv-org-pdf-1608-00187v1"><a href="#ECCV-2016-http-arxiv-org-pdf-1608-00187v1" class="headerlink" title="ECCV 2016 http://arxiv.org/pdf/1608.00187v1"></a>ECCV 2016 <a target="_blank" rel="noopener" href="http://arxiv.org/pdf/1608.00187v1">http://arxiv.org/pdf/1608.00187v1</a></h5><ul>
+<li>两大发现<ul>
+<li>尽管大多数的relationship并不常见，但是它们的object和predicate却更频繁地独立出现。<ul>
+<li>利用这个insight分别独立训练object和predicate的模型，然后再进行组合来预测。</li>
+</ul>
+</li>
+<li>relationship之间有semantic的关联。比如person riding a horse和person riding an elephant在语义上式相似的，因为horse和elephant都是animal，即使模型没有见过很多person riding an elephant，也可以从person riding a horse进行推断</li>
+</ul>
+</li>
+<li>本文方法<ul>
+<li>学习object和predicate的外观模型</li>
+<li>使用从language学习到的relationship embedding space</li>
+</ul>
+</li>
+<li>指标<ul>
+<li><strong>Recall @ x</strong> computes the fraction of times the correct relationship is predicted in the top x confident relationship predictions.</li>
+<li>mean average precision (<strong>mAP</strong>) is a pessimistic evaluation metric because we can not exhaustively annotate all possible relationships in an image.</li>
+</ul>
+</li>
+<li>检测物体视觉关系三种形式<ul>
+<li>predicate detection<ul>
+<li>input: an image and set of localized objects</li>
+<li>task: predict a set of possible predicates between pairs of objects</li>
+</ul>
+</li>
+<li>phrase detection<ul>
+<li>input: an image</li>
+<li>task: output a label &lt;object1 - predicate - object2&gt; and localize the entire relationship as one bounding box having at least 0.5 overlap with ground truth box</li>
+</ul>
+</li>
+<li>relationship detection<ul>
+<li>input: an image</li>
+<li>task: output a set of &lt;object1 - predicate - object2&gt; and localize both object1 and object2 in the image having at least 0.5 overlap with their ground truth boxes simultaneously.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Training-Approach"><a href="#Training-Approach" class="headerlink" title="Training Approach"></a>Training Approach</h4><ul>
+<li>Visual Appearance Module<ul>
+<li>训练一个卷积网络用以物体分类，另一个卷积网络接收union box为输入进行predicate分类。</li>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211029144043217.png" alt="image-20211029144043217"></li>
+<li>其中i，j代表物体类别，k代表predicate类别。</li>
+</ul>
+</li>
+<li>Language Module<ul>
+<li>insight是relationship之间是有语义联系的。语言模型将relationship都映射到了一个embedding space，在其中相似的relationship会很近</li>
+<li><em><strong>映射函数 projection function</strong></em><ul>
+<li>使用预先训练的词向量word vectors，将参与relationship的两个object转换到embedding space，然后将两个vector进行concat在用一个映射函数W转换到relationship vector space</li>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211029144553378.png" alt="image-20211029144553378"></li>
+<li>其中w_k为600维，t为300维，每个k得到一个score。</li>
+</ul>
+</li>
+<li><em><strong>训练映射函数</strong></em>  Training Projection Function<ul>
+<li>希望映射函数f能将相似的relationship映射得更近。用一个启发式的方法来对这个问题进行建模，希望两个relationship之间的距离和它们的对应objects以及predicate之间的word2vec距离成正比。</li>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211029144619310.png" alt="image-20211029144619310"></li>
+<li>d是两个relationship的object和predicate在word2vec space的cosine距离之和。为了得到上式的结果，也就是我们希望W能使所有的R参与上面的计算得到的constant是很接近的，因此想办法优化方差var，采样数目设为500K，最小化方差</li>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211029144627199.png" alt="image-20211029144627199"></li>
+</ul>
+</li>
+<li><em><strong>关系的似然</strong></em> Likelihood of a Relationship<ul>
+<li>映射函数的结果应该能够理想地反映一个visual relationship的似然。基本想法是希望训练集中出现频率越高的relationship的似然也应该更大，paper用一个rank loss来建模</li>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211029144652104.png" alt="image-20211029144652104"></li>
+<li>R比R’出现的更频繁 所以希望<img src="https://img-blog.csdnimg.cn/20181120102937639.png" alt="img"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>目标函数</strong></em> Objective function<ul>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211029144705674.png" alt="image-20211029144705674"></li>
+<li>这个优化函数能使ground truth relationship的rank大。最终的objective function为：</li>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211029144713741.png" alt="image-20211029144713741"></li>
+<li>K是关于W的双二次方程，有二次闭式解，在C和L上使用随机梯度下降法，大约迭代20-25次收敛。双二次方程指的是只含偶次项的多项式。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h4><ul>
+<li>先用RCNN生成candidate object proposals，RCNN是会判断object类别的，然后对每对object pair都用appearance model和language model预测relationship。</li>
+</ul>
+<h2 id="2-Pixels-to-Graphs-by-Associative-Embedding"><a href="#2-Pixels-to-Graphs-by-Associative-Embedding" class="headerlink" title="2.Pixels to Graphs by Associative Embedding"></a>2.Pixels to Graphs by Associative Embedding</h2><h5 id="NIPS-2017-http-arxiv-org-pdf-1706-07365v2"><a href="#NIPS-2017-http-arxiv-org-pdf-1706-07365v2" class="headerlink" title="NIPS 2017 http://arxiv.org/pdf/1706.07365v2"></a>NIPS 2017 <a target="_blank" rel="noopener" href="http://arxiv.org/pdf/1706.07365v2">http://arxiv.org/pdf/1706.07365v2</a></h5><ul>
+<li>目标：从像素中构建图<ul>
+<li>首先检测最后要得到的场景图的每个元素，包括节点和边（检测物体以及关系在图上的bbox）</li>
+<li>对这些元素进行组合（决定每条边应该和哪两个点相连）</li>
+</ul>
+</li>
+<li>关键是associative embedding</li>
+</ul>
+<h4 id="Detecting-graph-elements"><a href="#Detecting-graph-elements" class="headerlink" title="Detecting graph elements"></a>Detecting graph elements</h4><p><strong>将图片通过堆叠的hourglass网络得到逐像素的特征tensor，之后会分为两条路，一条利用该tensor产生存在的似然，另一条对似然较高的vector利用全连接进行属性的判断</strong></p>
+<ul>
+<li><p>找到组成一张图的所有的节点和边</p>
+<ul>
+<li>bounding box的中心坐标就是场景图中点对应的位置</li>
+<li>边的位置则是其两个关联的bounding box的中心坐标的均值</li>
+</ul>
+</li>
+<li><p>使用一个神经网络能够产生一个高分辨率的特征图</p>
+<ul>
+<li>特征图上每个像素与原图像素一一对应</li>
+<li>每个位置的vector则表示这个位置是否存在一个节点或者边，如果是存在的就用该vector来预测这个元素的属性</li>
+</ul>
+</li>
+<li><p>卷积神经网络</p>
+<ul>
+<li>处理图像并产生<code>h*w*f</code>的tensor，encode在一个长度为f的vector</li>
+</ul>
+</li>
+<li><p>产生使用堆叠的hourglass网络</p>
+<ul>
+<li>结合局部和全局的信息在整张图片上推理从而产生高质量的逐像素的预测</li>
+<li>提高分辨率-&gt;提高定位准确性</li>
+<li>分辨率越小，越容易发生重叠</li>
+</ul>
+</li>
+<li><p>在由hourglass网络得到的特征tensor上使用1*1卷积和非线性激活函数得到两个heatmap分别对应点和边</p>
+<ul>
+<li>heatmap的每个像素值表示原图的该位置上有一个点或者边存在的似然–&gt;得到存在的似然</li>
+<li>监督信号是一个和输出一样分辨率的0，1矩阵</li>
+<li>损失函数直接使用交叉熵即可</li>
+</ul>
+</li>
+<li><p>预测具体属性</p>
+<ul>
+<li>类别，object的bounding box</li>
+</ul>
+</li>
+<li><p>预测某个位置的检测结果的属性</p>
+<ul>
+<li>直接将该位置对应的vector输入一个全连接网络</li>
+</ul>
+</li>
+</ul>
+<h4 id="Connecting-elements-with-associative-embedding"><a href="#Connecting-elements-with-associative-embedding" class="headerlink" title="Connecting elements with associative embedding"></a><em><strong>Connecting elements with associative embedding</strong></em></h4><p>将第一步的检测结果组合以得到完整的关系图</p>
+<ul>
+<li>得到检测结果的属性<ul>
+<li>点：vector形式的唯一标志</li>
+<li>边：与之关联的两个点</li>
+<li>网络必须保证不同点的标志应该是不一样的，但指向相同物体的点的标志应该是相同的</li>
+</ul>
+</li>
+<li>假设每个节点的标志embedding为<code>h_i</code>，所有与之相连的边中它的embedding是<code>h_ik（k=1,…,K_i）</code>,<code>K_i</code>是与之相连的总的边数。<ul>
+<li>为了匹配点和边，需要一个“pull together”损失：<br><img src="https://img-blog.csdnimg.cn/20181101174510117.png" alt="在这里插入图片描述"></li>
+<li>另一方面为了区分不同的点，需要一个“push apart”损失：<br><img src="https://img-blog.csdnimg.cn/20181101174514771.png" alt="在这里插入图片描述"></li>
+</ul>
+</li>
+</ul>
+<h4 id="Support-for-overlapping-detections"><a href="#Support-for-overlapping-detections" class="headerlink" title="Support for overlapping detections"></a><em><strong>Support for overlapping detections</strong></em></h4><ul>
+<li><p>利用类似于anchor的机制，引入一个新的维度</p>
+<ul>
+<li>可以放多个检测结果，并且这个维度上每个位置的检测结果是与其视觉特征有关的</li>
+<li>对物体可行，对关系不可行</li>
+<li>会强制检测结果的像素位置，但允许它出现在该位置的新维度上的任何地方（不强制特征与检测结果在该维度的位置的关系）</li>
+<li>在训练时就必须要一个额外的步骤来确定可能的位置，这样才能计算损失</li>
+</ul>
+</li>
+<li><p>用于物体和关系的新维度分别为s_o和s_r</p>
+<ul>
+<li>每个像素点对应的vector就要用来产生s_o个物体（类别，bounding box，embedding）和s_r个关系（类别，sub_embedding，obj_embedding）</li>
+<li>采用了s_o+s_r个不同的全连接网络，分别对新维度上每个位置的物体和关系进行预测</li>
+<li>原本的两副heatmap也应该增加到新的维度</li>
+</ul>
+</li>
+<li><p>寻找match</p>
+<ul>
+<li>物体：对于物体，网络在每个像素点产生s_o个结果，我们将ground truth的类别one-hot编码以及bounding box与每个预测结果进行比较，选择最match的来求损失函数，此处使用了匈牙利算法来寻找一个最优match，而且要注意两个ground truth不能与相同的位置match</li>
+<li>关系：用于match的向量成了类别one-hot码以及两个关联物体的标志embedding的拼接</li>
+<li>match只在训练时需要，推理时不需要</li>
+</ul>
+</li>
+</ul>
+<h5 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h5><ul>
+<li>扩展object detection的heatmap的通道数为2，一个通道表示检测结果的中心，一个通道作为bounding box的mask</li>
+</ul>
+<h2 id="3-Neural-Motifs-Scene-Graph-Parsing-with-Global-Context"><a href="#3-Neural-Motifs-Scene-Graph-Parsing-with-Global-Context" class="headerlink" title="3.Neural Motifs: Scene Graph Parsing with Global Context"></a>3.Neural Motifs: Scene Graph Parsing with Global Context</h2><h5 id="CVPR-2018-DOI-10-1109-x2F-CVPR-2018-00611"><a href="#CVPR-2018-DOI-10-1109-x2F-CVPR-2018-00611" class="headerlink" title="CVPR 2018 DOI:10.1109&#x2F;CVPR.2018.00611"></a>CVPR 2018 DOI:<a target="_blank" rel="noopener" href="https://doi.org/10.1109/CVPR.2018.00611">10.1109&#x2F;CVPR.2018.00611</a></h5><ul>
+<li><p>Motif:场景图中规律出现的子结构</p>
+</li>
+<li><p>两个发现</p>
+<ul>
+<li>局部图结构有很强的规律性（一旦给定物体种类，关系的分布就高度倾斜，反之不然）</li>
+<li>在大的子图中依旧存在结构化图案</li>
+</ul>
+</li>
+<li><p>baseline：给定对象检测，预测具有给定标签的对象对之间最频繁的关系</p>
+</li>
+<li><p>Stacked Motif Network</p>
+</li>
+</ul>
+<h4 id="场景图形式化定义"><a href="#场景图形式化定义" class="headerlink" title="场景图形式化定义"></a>场景图形式化定义</h4><ul>
+<li><p>G: scene graph</p>
+</li>
+<li><p>B &#x3D; {b1, . . . , bn} of bounding boxes,</p>
+</li>
+<li><p>O &#x3D; {o1, . . . , on} of objects,</p>
+</li>
+<li><p>R &#x3D; {r1, . . . , rm} of binary relationships between those objects</p>
+<ul>
+<li>$$<br>r_k\in R: triplet\<br>a\ start\ node (bi, oi) \in B × O\<br>an\ end\ node (bj, oj) \in B × O\<br>a\ relationship\ label\ x_{i→j} \in R<br>$$</li>
+</ul>
+</li>
+</ul>
+<h4 id="quantitative-insights-on-the-structural-regularities-of-scene-graphs"><a href="#quantitative-insights-on-the-structural-regularities-of-scene-graphs" class="headerlink" title="quantitative insights on the structural regularities of scene graphs"></a>quantitative insights on the structural regularities of scene graphs</h4><ul>
+<li>常见的语义先验在生成准确的场景图中有着重要作用</li>
+<li>关系的局部分布具有显著的结构<ul>
+<li>边信息不能很好反应其他元素的信息</li>
+<li>头和尾的信息对于彼此和边的预测都有意义</li>
+</ul>
+</li>
+<li>给定关系对信息，边的信息可以得到很好的预测</li>
+<li>场景图除了局部结构外，还有高阶结构</li>
+<li>提取MOTIFS<ul>
+<li>提取两个组合的图案，用原子符号替换所有的图案实例，并挖掘出新的图案。</li>
+<li>motif: 在训练集出现至少50次，组合出现可能性比单独出现至少多10倍</li>
+</ul>
+</li>
+</ul>
+<h4 id="Stacked-Motif-Network-MOTIFNET"><a href="#Stacked-Motif-Network-MOTIFNET" class="headerlink" title="Stacked Motif Network (MOTIFNET)"></a>Stacked Motif Network (MOTIFNET)</h4><ul>
+<li><p><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211115154019751.png" alt="image-20211115154019751"></p>
+<ul>
+<li>bounding box model： 物体检测</li>
+<li>object model：给定一组B，对B线性化为一组LSTM可以处理的线性序列</li>
+<li>relation model：线性化一组预测的带标签的O，用LSTM创建物体的表示</li>
+</ul>
+</li>
+<li><p>object detector</p>
+<ul>
+<li>use Faster RCNN with a VGG backbone</li>
+<li>pretrain: optimize the detector using SGD</li>
+<li>integrate the use the detector freezing the convolution layers and duplicating the fully connected layers -&gt; separate branches for object&#x2F;edge features</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Learning-to-Compose-Dynamic-Tree-Structures-for-Visual-Contexts"><a href="#4-Learning-to-Compose-Dynamic-Tree-Structures-for-Visual-Contexts" class="headerlink" title="4.Learning to Compose Dynamic Tree Structures for Visual Contexts"></a>4.Learning to Compose Dynamic Tree Structures for Visual Contexts</h2><h5 id="CVPR-2019-https-arxiv-org-abs-1812-01880"><a href="#CVPR-2019-https-arxiv-org-abs-1812-01880" class="headerlink" title="CVPR 2019 https://arxiv.org/abs/1812.01880"></a>CVPR 2019 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1812.01880">https://arxiv.org/abs/1812.01880</a></h5><p>VCTREE——为高级推理任务构建面向对象级可视上下文的动态树结构</p>
+<ul>
+<li>VCTREE的优势<ul>
+<li>高效且富有表现力的二叉树能够编码物体之间内在的水平&#x2F;垂直的关系</li>
+<li>动态结构随图像和图像以及任务与任务的变化而变化，从而允许对象之间传递更多特定于内容&#x2F;任务的消息</li>
+<li>支持SGG和VQA</li>
+<li>与MOTIF相比，提高了学习小样本的能力<ul>
+<li>VCTree给每个bounding box encode了更相关的环境信息，因此可以预测更为复杂的relation</li>
+<li>在training过程中一直在微调，故不易轻易过拟合</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>先验结构（链条，全连接图）的劣势<ul>
+<li>chain：仅捕获简单的空间信息或共现偏差</li>
+<li>完全连通图：完整，但在层次关系和平行关系间无区别；后续上下文编码过于饱和</li>
+<li>共同劣势：与视觉环境的动态本质不兼容</li>
+</ul>
+</li>
+<li>指标Mean Recall@K<ul>
+<li>对50个relationship的类分别算Recall@K 然后求平均</li>
+<li>优势：可以看出模型学习小样本的能力</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>Feature Extraction</li>
+<li>构建可学习的对称矩阵S<ul>
+<li>计算S<img src="https://img-blog.csdnimg.cn/d4cf455fd8184c749701bc12d5c3500c.png" alt="在这里插入图片描述"></li>
+<li>由矩阵S构造VCTree，转化为左孩子右兄弟结构</li>
+</ul>
+</li>
+<li>使用双向TreeLSTM编码上下文<ul>
+<li>物体级别</li>
+<li>关系级别</li>
+</ul>
+</li>
+<li>解码上下文<ul>
+<li>物体类别预测</li>
+<li>谓语类别预测</li>
+</ul>
+</li>
+<li>混合学习——监督式学习+强化学习</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-Knowledge-Embedded-Routing-Network-for-Scene-Graph-Generation"><a href="#5-Knowledge-Embedded-Routing-Network-for-Scene-Graph-Generation" class="headerlink" title="5.Knowledge-Embedded Routing Network for Scene Graph Generation"></a>5.Knowledge-Embedded Routing Network for Scene Graph Generation</h2><h5 id="CVPR-2019-arXiv-1903-03326"><a href="#CVPR-2019-arXiv-1903-03326" class="headerlink" title="CVPR 2019  arXiv:1903.03326"></a>CVPR 2019 <strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1903.03326"> arXiv:1903.03326</a></strong></h5><ul>
+<li>发现<ul>
+<li>对象对之间统计相关性可以有效规范语义空间并降低预测模糊性，解决自然界中关系分配不均衡问题</li>
+<li>且这种统计相关性可以通过结构化的知识图显式地表示</li>
+</ul>
+</li>
+<li>贡献<ul>
+<li>第一个明确地将统计知识与深层架构相结合，以用于加速场景图生成</li>
+<li>开发知识嵌入式路由网络（Knowledge-Embedded Routing Network.），将统计相关性整合到深度神经网络中</li>
+<li>路由机制，通过图传播消息以探索对象间交互</li>
+<li>效果：对于有充足样本的关系提升不明显，但对于样本数有限的关系有着显著提升</li>
+</ul>
+</li>
+<li>KERN模型<ul>
+<li><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211128171006541.png" alt="image-20211128171006541"></li>
+<li>生成物体区域【Faster RCNN detector】</li>
+<li>构建将区域关联起来的图</li>
+<li>学习上下文化特征表示，预测每个区域的类标签【a propagation network】</li>
+<li>对于每个带有预测标签的对象对，构建图</li>
+<li>探索关系与相应物体之间的交.互【another propagation network】</li>
+</ul>
+</li>
+<li>指标<ul>
+<li>recall@K【R@K】：易受大比例样本的影响</li>
+<li>mean recall@K【mR@K】：更能综合反映对于所有关系的性能</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-Scene-Graph-Generation-by-Iterative-Message-Passing"><a href="#6-Scene-Graph-Generation-by-Iterative-Message-Passing" class="headerlink" title="6.Scene Graph Generation by Iterative Message Passing"></a>6.Scene Graph Generation by Iterative Message Passing</h2><h5 id="CVPR-2017-arXiv-1701-02426"><a href="#CVPR-2017-arXiv-1701-02426" class="headerlink" title="CVPR 2017  arXiv:1701.02426"></a>CVPR 2017 <strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1701.02426"> arXiv:1701.02426</a></strong></h5><p><img src="C:\Users\SHR\AppData\Roaming\Typora\typora-user-images\image-20211203220936802.png" alt="image-20211203220936802"></p>
+<blockquote>
+<p>文章参考CRF as RNN的方案，将graph的推断迭代问题建模为RNN方式，利用message passing提高精度。关于message passing的理解，CRF利用平均场方法来解，可以认为图是由顶点和边构成二分结构，利用平均场，所有对某个定点的影响是由其所连接的所有边造成的，反过来对于边也可解释。这样二分结构，通过动态规划迭代的方式求解，点对外的影响传递给边，同理边对外的影响传递给点，message就这样在点与边中交叉迭代的传递。</p>
+</blockquote>
+<ul>
+<li><p>目标：从图像中生成以视觉为基础的场景图</p>
+</li>
+<li><p>贡献：并非孤立地推断场景图的每个组件，而是在场景图的一对二部子图之间传递包含上下文信息的消息，并使用RNN迭代地改进其预测。</p>
+<ul>
+<li>采用一种新颖的推理公式（物体之间局部的关系与上下文信息之间的共同推理）</li>
+</ul>
+</li>
+<li><p>模型</p>
+<ul>
+<li><strong>利用RNN推理</strong> 利用mean field对graph做近似逼近，将点和边分开解耦。采用两个GRU单元分别对node和edge进行建模. 边GRU连接着是结点GRU，反之亦然。沿此结构传递消息形成两个互不相交的子图（彼此是对偶图）</li>
+<li><strong>对偶更新和message pooling</strong> 利用场景图独特的二部结构，以进一步提高推理效率。node和edge满足二分图拓扑结构（分为<code>node-centric</code>（以节点为中心的原始图）和<code>edge-centric</code>（以边为中心的对偶图），图的推断可以利用二者通过<code>message passing</code>方式迭代求解，而非通过一个全连接图。）</li>
+</ul>
+</li>
+<li><p>效果（针对graph generation problem。实验也验证了在支持关系预测问题上的可行性）</p>
+<ul>
+<li><p>两次迭代效果最好（随着迭代次数增多，噪音渗入会阻碍最终结果预测）</p>
+</li>
+<li><p>利用上下文信息，能一定程度上解决关系标注中不均匀分布问题</p>
+</li>
+<li><p>另外，baseline存在主语和宾语混淆、环形关系预测（like <vase-in-flower-in-vase>）的问题</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-Scene-Graph-Generation-from-Objects-Phrases-and-Region-Captions"><a href="#7-Scene-Graph-Generation-from-Objects-Phrases-and-Region-Captions" class="headerlink" title="7.Scene Graph Generation from Objects, Phrases and Region Captions"></a>7.Scene Graph Generation from Objects, Phrases and Region Captions</h2><h5 id="CVPR-2017-arXiv-1707-09700"><a href="#CVPR-2017-arXiv-1707-09700" class="headerlink" title="CVPR 2017  arXiv:1707.09700"></a>CVPR 2017 <strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1707.09700"> arXiv:1707.09700</a></strong></h5><ul>
+<li><p>摘要</p>
+<ul>
+<li>利用<u>语义层之间的相互联系</u>，提出了Multi-level Scene Description Network (denoted as MSDN)，用于以端到端的方式共同解决物体检测、场景图生成与区域标注三个视觉任务。</li>
+</ul>
+</li>
+<li><p>发现Observation</p>
+<ul>
+<li><p>场景图（scene graph）是在图像检测到的物体（object detection）上生成的并预测了对象间的关系，而区域标注（region captioning）则给出了物体、属性、关系和其他上下文信息的语言描述——三个任务彼此间有联系，但是不同任务间的弱对齐使得联合学习模型变得困难</p>
+</li>
+<li><p>三个任务的特征高度相关，并且可以互为补充信息</p>
+<blockquote>
+<p>三元组phrase印证了object的存在，region captions提供对对象的存在、属性以及关系的约束</p>
+</blockquote>
+</li>
+<li><p>连接三种任务的关键是利用视觉特征空间和语义的联系</p>
+</li>
+</ul>
+</li>
+<li><p>贡献</p>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Scene-Graph-Paper-Reading"><span class="toc-number">1.</span> <span class="toc-text">Scene Graph Paper Reading</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Visual-Relationship-Detection-with-Language-Priors"><span class="toc-number">1.1.</span> <span class="toc-text">1.Visual Relationship Detection with Language Priors</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ECCV-2016-http-arxiv-org-pdf-1608-00187v1"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">ECCV 2016 http:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1608.00187v1</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Training-Approach"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">Training Approach</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Testing"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">Testing</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Pixels-to-Graphs-by-Associative-Embedding"><span class="toc-number">1.2.</span> <span class="toc-text">2.Pixels to Graphs by Associative Embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#NIPS-2017-http-arxiv-org-pdf-1706-07365v2"><span class="toc-number">1.2.0.0.1.</span> <span class="toc-text">NIPS 2017 http:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1706.07365v2</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Detecting-graph-elements"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">Detecting graph elements</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Connecting-elements-with-associative-embedding"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">Connecting elements with associative embedding</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Support-for-overlapping-detections"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">Support for overlapping detections</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.2.0.3.1.</span> <span class="toc-text">实验</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Neural-Motifs-Scene-Graph-Parsing-with-Global-Context"><span class="toc-number">1.3.</span> <span class="toc-text">3.Neural Motifs: Scene Graph Parsing with Global Context</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2018-DOI-10-1109-x2F-CVPR-2018-00611"><span class="toc-number">1.3.0.0.1.</span> <span class="toc-text">CVPR 2018 DOI:10.1109&#x2F;CVPR.2018.00611</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E5%9B%BE%E5%BD%A2%E5%BC%8F%E5%8C%96%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">场景图形式化定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#quantitative-insights-on-the-structural-regularities-of-scene-graphs"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">quantitative insights on the structural regularities of scene graphs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Stacked-Motif-Network-MOTIFNET"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">Stacked Motif Network (MOTIFNET)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Learning-to-Compose-Dynamic-Tree-Structures-for-Visual-Contexts"><span class="toc-number">1.4.</span> <span class="toc-text">4.Learning to Compose Dynamic Tree Structures for Visual Contexts</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2019-https-arxiv-org-abs-1812-01880"><span class="toc-number">1.4.0.0.1.</span> <span class="toc-text">CVPR 2019 https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1812.01880</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Knowledge-Embedded-Routing-Network-for-Scene-Graph-Generation"><span class="toc-number">1.5.</span> <span class="toc-text">5.Knowledge-Embedded Routing Network for Scene Graph Generation</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2019-arXiv-1903-03326"><span class="toc-number">1.5.0.0.1.</span> <span class="toc-text">CVPR 2019  arXiv:1903.03326</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Scene-Graph-Generation-by-Iterative-Message-Passing"><span class="toc-number">1.6.</span> <span class="toc-text">6.Scene Graph Generation by Iterative Message Passing</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2017-arXiv-1701-02426"><span class="toc-number">1.6.0.0.1.</span> <span class="toc-text">CVPR 2017  arXiv:1701.02426</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Scene-Graph-Generation-from-Objects-Phrases-and-Region-Captions"><span class="toc-number">1.7.</span> <span class="toc-text">7.Scene Graph Generation from Objects, Phrases and Region Captions</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CVPR-2017-arXiv-1707-09700"><span class="toc-number">1.7.0.0.1.</span> <span class="toc-text">CVPR 2017  arXiv:1707.09700</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&is_video=false&description="><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&title="><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&name=&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/11/Scene%20Graph%20Paper%20Reading/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    big jiale
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
