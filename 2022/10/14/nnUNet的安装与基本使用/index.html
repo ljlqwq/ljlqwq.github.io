@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="nnUNet的安装与基本使用背景​	因为最近需要一个能够使用二维模型进行三维医学图像分割的框架，然后将视频分割的思想融入进去。考虑到目前大多数新的模型要么是专门为某几个任务设计的，要么为了追求性能使用了三维模型，因此我想到了之前非常火的nnUNet。目前的考虑是，使用nnUNet作为二维分割的基础框架，然后进行修改以融入视频分割的帧间信息。这样不仅能够做不同模型之间的对比，也方便在不同的医学影像分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nnUNet的安装与基本使用">
+<meta property="og:url" content="http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="nnUNet的安装与基本使用背景​	因为最近需要一个能够使用二维模型进行三维医学图像分割的框架，然后将视频分割的思想融入进去。考虑到目前大多数新的模型要么是专门为某几个任务设计的，要么为了追求性能使用了三维模型，因此我想到了之前非常火的nnUNet。目前的考虑是，使用nnUNet作为二维分割的基础框架，然后进行修改以融入视频分割的帧间信息。这样不仅能够做不同模型之间的对比，也方便在不同的医学影像分">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-14T11:24:21.000Z">
+<meta property="article:modified_time" content="2022-10-14T13:47:59.867Z">
+<meta property="article:author" content="big jiale">
+<meta property="article:tag" content="tips">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>nnUNet的安装与基本使用</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/10/11/Scene%20Graph%20Paper%20Reading/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&text=nnUNet的安装与基本使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&is_video=false&description=nnUNet的安装与基本使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=nnUNet的安装与基本使用&body=Check out this article: http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&name=nnUNet的安装与基本使用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&t=nnUNet的安装与基本使用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">nnUNet的安装与基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.0.1.</span> <span class="toc-text">背景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">数据处理与环境变量设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E6%96%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E4%BD%BF%E7%94%A8nnUNet"><span class="toc-number">1.3.</span> <span class="toc-text">如何在新的数据集上使用nnUNet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#step1%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">step1、数据集转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#step2%E3%80%81%E5%AE%9E%E9%AA%8C%E8%A7%84%E5%88%92%E4%B8%8E%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">step2、实验规划与预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#step3%E3%80%81%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">step3、模型训练</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%89%BE%E5%87%BA%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E6%A8%A1%E5%9E%8B%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">4、找出最合适的模型配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">5、模型推理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E5%A6%82%E4%BD%95%E6%89%A9%E5%B1%95nnUNet"><span class="toc-number">1.3.0.6.</span> <span class="toc-text">6、如何扩展nnUNet</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        nnUNet的安装与基本使用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">big jiale</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-10-14T11:24:21.000Z" itemprop="datePublished">2022-10-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/tips/" rel="tag">tips</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="nnUNet的安装与基本使用"><a href="#nnUNet的安装与基本使用" class="headerlink" title="nnUNet的安装与基本使用"></a>nnUNet的安装与基本使用</h1><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​	因为最近需要一个能够使用二维模型进行三维医学图像分割的框架，然后将视频分割的思想融入进去。考虑到目前大多数新的模型要么是专门为某几个任务设计的，要么为了追求性能使用了三维模型，因此我想到了之前非常火的nnUNet。目前的考虑是，使用nnUNet作为二维分割的基础框架，然后进行修改以融入视频分割的帧间信息。这样不仅能够做不同模型之间的对比，也方便在不同的医学影像分割任务上都进行性能的验证。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>为了不与之前做脑肿瘤分割的brats环境冲突，打算另起炉灶，新建了一个nnunet的环境</li>
+<li>使用了比较新的torch1.10.1</li>
+<li>按照官方说明进行了完整版本的安装，</li>
+</ul>
+<h2 id="数据处理与环境变量设置"><a href="#数据处理与环境变量设置" class="headerlink" title="数据处理与环境变量设置"></a>数据处理与环境变量设置</h2><p>​	nnunet的三个关键路径分别设置为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> nnUNet_raw_data_base=<span class="string">&quot;/home/lijl/data/nnUNet_raw&quot;</span></span><br><span class="line"><span class="built_in">export</span> nnUNet_preprocessed=<span class="string">&quot;/home/lijl/data/nnUNet_preprocessed&quot;</span></span><br><span class="line"><span class="built_in">export</span> RESULTS_FOLDER=<span class="string">&quot;/home/lijl/data/nnUNet_trained_models&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何在新的数据集上使用nnUNet"><a href="#如何在新的数据集上使用nnUNet" class="headerlink" title="如何在新的数据集上使用nnUNet"></a>如何在新的数据集上使用nnUNet</h2><h4 id="step1、数据集转换"><a href="#step1、数据集转换" class="headerlink" title="step1、数据集转换"></a>step1、数据集转换</h4><ul>
+<li>将原始数据放在nnUNet_raw_data_base&#x2F;nnUNet_raw_data上，并命名为Task001_XXX。</li>
+<li>每一个子任务文件夹下需要有几个子文件(夹)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Task001_BrainTumour/</span><br><span class="line">├── dataset.json</span><br><span class="line">├── imagesTr</span><br><span class="line">├── (imagesTs)</span><br><span class="line">└── labelsTr</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所有图像必须是.nii.gz格式的，并且有唯一的标识ID。</li>
+<li>图像的命名可以为case_identifier_XXXX.nii.gz，其中XXXX为模态标识符。</li>
+<li>标签的命名可以为case_identifier.nii.gz</li>
+<li>nnunet&#x2F;dataset_conversion&#x2F;utils.py  下有相关的生成dataset.json的代码做参考</li>
+</ul>
+<h4 id="step2、实验规划与预处理"><a href="#step2、实验规划与预处理" class="headerlink" title="step2、实验规划与预处理"></a>step2、实验规划与预处理</h4><ul>
+<li>以下命令会预处理原始数据并生成相应的模型配置。–verify_dataset_integrity用来检查准备的数据的合理性。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nnUNet_plan_and_preprocess -t XXX --verify_dataset_integrity</span><br></pre></td></tr></table></figure>
+
+<h4 id="step3、模型训练"><a href="#step3、模型训练" class="headerlink" title="step3、模型训练"></a>step3、模型训练</h4><p>nnUNet_train CONFIGURATION TRAINER_CLASS_NAME TASK_NAME_OR_ID FOLD  –npz (additional options)</p>
+<ul>
+<li>2D UNet</li>
+</ul>
+<blockquote>
+<p> nnUNet_train 2d nnUNetTrainerV2 TaskXXX_MYTASK FOLD –npz</p>
+</blockquote>
+<ul>
+<li>3D full resolution UNet</li>
+</ul>
+<blockquote>
+<p>nnUNet_train 3d_fullres nnUNetTrainerV2 TaskXXX_MYTASK FOLD –npz</p>
+</blockquote>
+<ul>
+<li>3D low resolution UNet</li>
+</ul>
+<blockquote>
+<p>nnUNet_train 3d_lowres nnUNetTrainerV2 TaskXXX_MYTASK FOLD –npz</p>
+</blockquote>
+<ul>
+<li>3D cascade</li>
+</ul>
+<blockquote>
+<p>nnUNet_train 3d_cascade_fullres nnUNetTrainerV2CascadeFullRes TaskXXX_MYTASK FOLD –npz</p>
+</blockquote>
+<h4 id="4、找出最合适的模型配置"><a href="#4、找出最合适的模型配置" class="headerlink" title="4、找出最合适的模型配置"></a>4、找出最合适的模型配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nnUNet_find_best_configuration -m 2d 3d_fullres 3d_lowres 3d_cascade_fullres -t XXX --strict</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、模型推理"><a href="#5、模型推理" class="headerlink" title="5、模型推理"></a>5、模型推理</h4><p>​    推理过程中使用的数据集 imagesTs必须与训练集又相同的格式。</p>
+<p>​	nnUNet_find_best_configuration会输出我需要的推理命令，这是最简单的执行推理的方法。</p>
+<ul>
+<li>以下命令为对制定的配置进行预测推理</li>
+</ul>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nnUNet_predict -i INPUT_FOLDER -o OUTPUT_FOLDER -t TASK_NAME_OR_ID -m CONFIGURATION --save_np</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>以下命令对已经生成的预测结果进行ensemble</li>
+</ul>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nnUNet_ensemble -f FOLDER1 FOLDER2 ... -o OUTPUT_FOLDER -pp POSTPROCESSING_FILE</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="6、如何扩展nnUNet"><a href="#6、如何扩展nnUNet" class="headerlink" title="6、如何扩展nnUNet"></a>6、如何扩展nnUNet</h4><ul>
+<li>使用新的模型。创建的模型需要提供nnUNet所需要的一些参数，比如下采样的次数，深度监督是否被使用，使用多大的卷积核，对可能使用空间大小的估计等等。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">nnUNet的安装与基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.0.1.</span> <span class="toc-text">背景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">数据处理与环境变量设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E6%96%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E4%BD%BF%E7%94%A8nnUNet"><span class="toc-number">1.3.</span> <span class="toc-text">如何在新的数据集上使用nnUNet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#step1%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">step1、数据集转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#step2%E3%80%81%E5%AE%9E%E9%AA%8C%E8%A7%84%E5%88%92%E4%B8%8E%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">step2、实验规划与预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#step3%E3%80%81%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">step3、模型训练</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%89%BE%E5%87%BA%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E6%A8%A1%E5%9E%8B%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">4、找出最合适的模型配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">5、模型推理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E5%A6%82%E4%BD%95%E6%89%A9%E5%B1%95nnUNet"><span class="toc-number">1.3.0.6.</span> <span class="toc-text">6、如何扩展nnUNet</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&text=nnUNet的安装与基本使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&is_video=false&description=nnUNet的安装与基本使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=nnUNet的安装与基本使用&body=Check out this article: http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&title=nnUNet的安装与基本使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&name=nnUNet的安装与基本使用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/10/14/nnUNet%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/&t=nnUNet的安装与基本使用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    big jiale
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
