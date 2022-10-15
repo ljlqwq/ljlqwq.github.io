@@ -14,7 +14,7 @@
 <meta property="og:description" content="nnUNet的安装与基本使用背景​	因为最近需要一个能够使用二维模型进行三维医学图像分割的框架，然后将视频分割的思想融入进去。考虑到目前大多数新的模型要么是专门为某几个任务设计的，要么为了追求性能使用了三维模型，因此我想到了之前非常火的nnUNet。目前的考虑是，使用nnUNet作为二维分割的基础框架，然后进行修改以融入视频分割的帧间信息。这样不仅能够做不同模型之间的对比，也方便在不同的医学影像分">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-14T11:24:21.000Z">
-<meta property="article:modified_time" content="2022-10-14T13:47:59.867Z">
+<meta property="article:modified_time" content="2022-10-15T12:53:40.942Z">
 <meta property="article:author" content="big jiale">
 <meta property="article:tag" content="tips">
 <meta name="twitter:card" content="summary">
@@ -199,6 +199,7 @@
 <blockquote>
 <p>nnUNet_train 3d_cascade_fullres nnUNetTrainerV2CascadeFullRes TaskXXX_MYTASK FOLD –npz</p>
 </blockquote>
+<p>​	–npz用来生成验证集的softmax输出，会占用较大的空间。如果在训练时没有–npz但仍然需要的话，可以使用如下方法再跑一次验证集。</p>
 <h4 id="4、找出最合适的模型配置"><a href="#4、找出最合适的模型配置" class="headerlink" title="4、找出最合适的模型配置"></a>4、找出最合适的模型配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nnUNet_find_best_configuration -m 2d 3d_fullres 3d_lowres 3d_cascade_fullres -t XXX --strict</span><br></pre></td></tr></table></figure>
 
 <h4 id="5、模型推理"><a href="#5、模型推理" class="headerlink" title="5、模型推理"></a>5、模型推理</h4><p>​    推理过程中使用的数据集 imagesTs必须与训练集又相同的格式。</p>
